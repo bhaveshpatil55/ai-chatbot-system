@@ -1,0 +1,41 @@
+import difflib
+
+student_queries = {
+    "exam": "The exam timetable will be announced next week.",
+    "assignment": "Assignments must be submitted before Friday.",
+    "holiday": "Holiday list is available on the college portal.",
+    "library": "Library timing is 8 AM to 8 PM.",
+    "attendance": "Minimum 75% attendance is required.",
+    "result": "Results will be declared online."
+}
+
+
+def handle_query(user_input):
+
+    user_input = user_input.lower()
+
+    if user_input == "exit":
+        return "Good luck with your studies!"
+
+    words = user_input.split()
+
+    for word in words:
+
+        match = difflib.get_close_matches(word, student_queries.keys(), n=1, cutoff=0.7)
+
+        if match:
+            return student_queries[match[0]]
+
+    return "Sorry, I don't understand your query."
+
+
+while True:
+
+    user_input = input("Ask your query (or type 'exit'): ")
+
+    response = handle_query(user_input)
+
+    print(response)
+
+    if user_input.lower() == "exit":
+        break
